@@ -1,6 +1,6 @@
 # Simple REST API in 3 Easy Steps
 
-A powerful, simple REST API generated from a CSV document in three easy steps.
+A powerful, simple RESTful API generated from a CSV document in three easy steps.
 
 ![Build a REST API from a CSV in 3 easy steps](https://raw.githubusercontent.com/mheadd/simple-rest-api/master/rest-api-3-steps.gif "Build a REST API")
 
