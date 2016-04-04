@@ -70,7 +70,7 @@ Check to make sure the data is [valid CSV](http://csvkit.readthedocs.org/en/0.9.
 ~$ csvsql --db postgres://simpleapi:simpleapi@{docker-container-ip}:5432/simpleapi --insert inspections.csv
 ```
 
-Now, you can access the data at 
+Now, you can access the data at: ```http://{docker-container-ip}:3000/```
 
 You can query the data using the [PostgREST query API](http://postgrest.com/api/reading/), like so:
 
