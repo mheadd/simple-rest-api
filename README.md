@@ -64,7 +64,7 @@ Now, lets get some data.
 ```bash
 ~$ curl -s "http://data.phl.opendata.arcgis.com/datasets/c6e15e5d253346049892cb19224c742c_0.csv" > complaints.csv
 ```
-Check to make sure the data is [valid CSV](http://csvkit.readthedocs.org/en/0.9.1/scripts/csvclean.html) and then inset it into our Postgres instance using ```csvkit```.
+Check to make sure the data is [valid CSV](http://csvkit.readthedocs.org/en/0.9.1/scripts/csvclean.html) and then inset it into our Postgres instance from step 1 above using ```csvkit```.
 
 ```bash
 ~$ csvsql --db postgres://simpleapi:simpleapi@192.168.99.100:5432/simpleapi --insert complaints.csv
@@ -72,7 +72,7 @@ Check to make sure the data is [valid CSV](http://csvkit.readthedocs.org/en/0.9.
 
 Now, you can access the data at 
 
-You can query the data using the [PostgREST API](http://postgrest.com/api/reading/), like so:
+You can query the data using the [PostgREST query API](http://postgrest.com/api/reading/), like so:
 
 ```bash
 ~$ curl -s "http://192.168.99.100:3000/complaints?SEX=eq.Male&RACE=eq.Black&STATUS=eq.Open" -H 'Range-Unit: items' -H 'Range: 0-1' | jq .
