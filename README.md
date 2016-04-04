@@ -62,12 +62,12 @@ f46707bbd549        postgres:latest                 "/docker-entrypoint.s"   2 m
 Now, lets get some data.
 
 ```bash
-~$ curl -s "http://data.phl.opendata.arcgis.com/datasets/c6e15e5d253346049892cb19224c742c_0.csv" > complaints.csv
+~$ curl -s "http://data.louisvilleky.gov/sites/default/files/temp_import/FoodServiceData.txt" > inspections.csv
 ```
 Check to make sure the data is [valid CSV](http://csvkit.readthedocs.org/en/0.9.1/scripts/csvclean.html) and then inset it into our Postgres instance from step 1 above using ```csvkit```.
 
 ```bash
-~$ csvsql --db postgres://simpleapi:simpleapi@{docker-container-ip}:5432/simpleapi --insert complaints.csv
+~$ csvsql --db postgres://simpleapi:simpleapi@{docker-container-ip}:5432/simpleapi --insert inspections.csv
 ```
 
 Now, you can access the data at 
@@ -75,43 +75,48 @@ Now, you can access the data at
 You can query the data using the [PostgREST query API](http://postgrest.com/api/reading/), like so:
 
 ```bash
-~$ curl -s "http://{docker-container-ip}:3000/complaints?SEX=eq.Male&RACE=eq.Black&STATUS=eq.Open" -H 'Range-Unit: items' -H 'Range: 0-1' | jq .
+~$ curl -s "http://192.168.99.100:3000/inspections?Grade=eq.A" -H 'Range-Unit: items' -H 'Range: 0-1' | jq .
 ```
 
 ```json
-
 [
   {
-    "GlobalID": "a60c5337-6f29-4fce-8893-dfd6c2524f89",
-    "LAT": 39.923172,
-    "LONG_": -75.170571,
-    "STATUS": "Open",
-    "ACTION": "ACCEPT",
-    "UNIT": "District 1",
-    "﻿X": -75.1705709997512,
-    "Y": 39.9231719996889,
-    "OBJECTID_1": 19,
-    "AGE": 53,
-    "RACE": "Black",
-    "SEX": "Male",
-    "TYPE": "PHYSICAL ABUSE",
-    "DATE_": "2010-02-01"
+    "Intersection": null,
+    "State": "KY",
+    "City": "LOUISVILLE",
+    "Address2": null,
+    "Address": "MOBILE FOOD UNIT",
+    "PlaceName": null,
+    "EstablishmentName": "FUNNEL CAKE #5",
+    "InspectionID": 1104831,
+    "EstablishmentID": 27867,
+    "Zip": 40202,
+    "TypeDescription": "SELF-CONTAINED MOBILE FOOD UNITS",
+    "Latitude": 38.2526647,
+    "Longitude": -85.7584557,
+    "InspectionDate": "2015-05-24",
+    "Score": 98,
+    "Grade": "A",
+    "NameSearch": "FUNNELCAKE"
   },
   {
-    "GlobalID": "19237a4c-8f82-4f5a-9160-317211f172a1",
-    "LAT": 39.924724,
-    "LONG_": -75.228861,
-    "STATUS": "Open",
-    "ACTION": "ACCEPT",
-    "UNIT": "District 12",
-    "﻿X": -75.2288609997347,
-    "Y": 39.9247240002134,
-    "OBJECTID_1": 30,
-    "AGE": 24,
-    "RACE": "Black",
-    "SEX": "Male",
-    "TYPE": "ABUSE OF AUTHORITY",
-    "DATE_": "2009-01-23"
+    "Intersection": null,
+    "State": "KY",
+    "City": "LOUISVILLE",
+    "Address2": null,
+    "Address": "MOBILE FOOD UNIT",
+    "PlaceName": null,
+    "EstablishmentName": "FUNNEL CAKE #5",
+    "InspectionID": 1132274,
+    "EstablishmentID": 27867,
+    "Zip": 40202,
+    "TypeDescription": "SELF-CONTAINED MOBILE FOOD UNITS",
+    "Latitude": 38.2526647,
+    "Longitude": -85.7584557,
+    "InspectionDate": "2015-08-25",
+    "Score": 100,
+    "Grade": "A",
+    "NameSearch": "FUNNELCAKE"
   }
 ]
 
