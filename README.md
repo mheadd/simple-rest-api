@@ -39,7 +39,7 @@ Now, run the container and pass in the details of the Postgres container.
 ~$ docker run --name postgrest-service \
 -p 3000:3000 \
 -e POSTGREST_VERSION=0.3.1.1 \
--e POSTGREST_DBHOST=192.168.99.100 \
+-e POSTGREST_DBHOST={docker-container-ip} \
 -e POSTGREST_DBPORT=5432 \
 -e POSTGREST_DBNAME=simpleapi \
 -e POSTGREST_DBUSER=simpleapi \
@@ -67,7 +67,7 @@ Now, lets get some data.
 Check to make sure the data is [valid CSV](http://csvkit.readthedocs.org/en/0.9.1/scripts/csvclean.html) and then inset it into our Postgres instance from step 1 above using ```csvkit```.
 
 ```bash
-~$ csvsql --db postgres://simpleapi:simpleapi@192.168.99.100:5432/simpleapi --insert complaints.csv
+~$ csvsql --db postgres://simpleapi:simpleapi@{docker-container-ip}:5432/simpleapi --insert complaints.csv
 ```
 
 Now, you can access the data at 
@@ -75,7 +75,7 @@ Now, you can access the data at
 You can query the data using the [PostgREST query API](http://postgrest.com/api/reading/), like so:
 
 ```bash
-~$ curl -s "http://192.168.99.100:3000/complaints?SEX=eq.Male&RACE=eq.Black&STATUS=eq.Open" -H 'Range-Unit: items' -H 'Range: 0-1' | jq .
+~$ curl -s "http://{docker-container-ip}:3000/complaints?SEX=eq.Male&RACE=eq.Black&STATUS=eq.Open" -H 'Range-Unit: items' -H 'Range: 0-1' | jq .
 ```
 
 ```json
